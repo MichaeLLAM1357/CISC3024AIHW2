@@ -1,0 +1,7 @@
+ablation,accuracy,nll,ece,auroc_native,note
+disc_diagonal,0.9839,0.0571,0.0061,0.9208,
+disc_lowrank,0.9838,0.0615,0.0059,0.939,
+disc_prior_0.1,0.9833,0.0574,0.004,0.9103,
+disc_prior_10,0.9832,0.061,0.0077,0.9145,
+disc_no_ood,0.985,,,,"adapter raised as designed: [disc_no_ood] the VBLL head was built with return_ood=False, so out.oo"
+disc_dense,0.9835,0.0584,0.0056,0.9253,

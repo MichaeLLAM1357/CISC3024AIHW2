@@ -1,0 +1,142 @@
+{
+  "environment": {
+    "device": "cuda",
+    "gpu_name": "Tesla T4",
+    "torch": "2.11.0+cu130",
+    "torchvision": "0.26.0+cu130",
+    "numpy": "2.1.3",
+    "vbll": "0.4.9",
+    "laplace-torch": "0.2.3",
+    "curvlinops-for-pytorch": "3.0.1",
+    "scikit-learn": "1.6.1"
+  },
+  "config": {
+    "seed": 0,
+    "seeds": [
+      0,
+      1,
+      2
+    ],
+    "require_cuda": true,
+    "data_dir": "./data",
+    "val_frac": 0.1,
+    "num_workers": 2,
+    "in_dim": 784,
+    "hidden": 256,
+    "depth": 2,
+    "num_classes": 10,
+    "epochs": 30,
+    "batch_size": 512,
+    "lr": 0.003,
+    "weight_decay": 0.0,
+    "early_stop_patience": 8,
+    "vbll_parameterization": "diagonal",
+    "vbll_prior_scale": 1.0,
+    "vbll_return_ood": true,
+    "laplace_subset": "last_layer",
+    "laplace_hessian": "kron",
+    "laplace_pred_type": "glm",
+    "laplace_link_approx": "sampled",
+    "laplace_n_samples": 100,
+    "laplace_grid_size": 30,
+    "laplace_log_prior_min": -4.0,
+    "laplace_log_prior_max": 4.0,
+    "laplace_batch_size": 512,
+    "laplace_diagonal_output": false,
+    "n_bins": 15,
+    "out_dir": "outputs",
+    "fig_dir": "outputs/figures",
+    "run_robustness": false
+  },
+  "link_approx_used": "mc",
+  "laplace_prior_precision": 9.999999747378752e-05,
+  "backbone_params": 266752,
+  "arm_params": {
+    "a_mlp_softmax": 269322,
+    "b_vbll_disc": 271882,
+    "c_vbll_gen": 272128,
+    "d_laplace_lla": 269322
+  },
+  "results": {
+    "a_mlp_softmax": {
+      "arm": "a_mlp_softmax",
+      "n_id": 10000,
+      "n_ood": 10000,
+      "accuracy": 0.9792,
+      "nll": 0.08178291816615794,
+      "ece": 0.010508709828555566,
+      "ece_equal_mass": 0.010201575295627112,
+      "auroc_native": 0.8452690400000001,
+      "auroc_entropy": 0.8446227,
+      "n_bins": 15
+    },
+    "b_vbll_disc": {
+      "arm": "b_vbll_disc",
+      "n_id": 10000,
+      "n_ood": 10000,
+      "accuracy": 0.9773,
+      "nll": 0.07504882501613576,
+      "ece": 0.00469749229252336,
+      "ece_equal_mass": 0.0030960884779691555,
+      "auroc_native": 0.95185911,
+      "auroc_entropy": 0.9551544500000001,
+      "n_bins": 15
+    },
+    "c_vbll_gen": {
+      "arm": "c_vbll_gen",
+      "n_id": 10000,
+      "n_ood": 10000,
+      "accuracy": 0.9734,
+      "nll": 0.1118134020284151,
+      "ece": 0.005047116601467063,
+      "ece_equal_mass": 0.0027133422702550793,
+      "auroc_native": 0.82609773,
+      "auroc_entropy": 0.8246122,
+      "n_bins": 15
+    },
+    "d_laplace_lla": {
+      "arm": "d_laplace_lla",
+      "n_id": 10000,
+      "n_ood": 10000,
+      "accuracy": 0.9794,
+      "nll": 0.0707109007185895,
+      "ece": 0.004828282435914131,
+      "ece_equal_mass": 0.003452932792901035,
+      "auroc_native": 0.9559600699999998,
+      "auroc_entropy": 0.95951877,
+      "n_bins": 15
+    }
+  },
+  "provenance": {
+    "a_mlp_softmax": {
+      "source": "softmax",
+      "ood_score_definition": "1 - max p"
+    },
+    "b_vbll_disc": {
+      "source": "vbll",
+      "vbll_ood_raw_definition": "max predictive probability",
+      "ood_score_transform": "1 - max_predictive",
+      "mc_samples_inside_head": 20
+    },
+    "c_vbll_gen": {
+      "source": "vbll",
+      "vbll_ood_raw_definition": "max predictive probability",
+      "ood_score_transform": "1 - max_predictive",
+      "mc_samples_inside_head": 20
+    },
+    "d_laplace_lla": {
+      "source": "laplace_glm",
+      "link_approx": "mc",
+      "n_samples": 100,
+      "hessian_structure": "kron",
+      "ood_score_definition": "derived: 1 - max p"
+    }
+  },
+  "figures": [
+    "ood_histogram_entropy.png",
+    "ood_histogram_native.png",
+    "reliability_diagram.png",
+    "risk_coverage.png",
+    "sanity_data.png"
+  ]
+}

@@ -1,0 +1,23 @@
+# Jupyter / Colab
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/*
+__pycache__/
+*.py[cod]
+
+# Datasets (downloaded at runtime by torchvision; ~50 MB)
+data/MNIST/
+data/FashionMNIST/
+
+# Local checkpoints (regenerate by running the notebooks)
+*.pt
+*.pth
+*.tmp
+
+# Colab artefacts
+colab-constraints.txt
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
